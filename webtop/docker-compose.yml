@@ -1,0 +1,26 @@
+---
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:ubuntu-xfce
+    container_name: webtop
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBFOLDER=/ #optional
+      - TITLE=Webtop #optional
+    volumes:
+      - webtop:/ubuntu-xfce
+    ports:
+      - 4000:3000
+      - 4001:3001
+    devices:
+      - /dev/dri:/dev/dri #optional
+    shm_size: "2gb" #optional
+    network_mode: "host"
+    restart: unless-stopped
+
+volumes:
+  webtop:
