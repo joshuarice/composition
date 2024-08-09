@@ -1,0 +1,20 @@
+---
+services:
+  orcaslicer:
+    image: lscr.io/linuxserver/orcaslicer:latest
+    container_name: orcaslicer
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - orcaslicer:/config
+    ports:
+      - 7000:3000
+      - 7001:3001
+    restart: unless-stopped
+
+volumes:
+  orcaslicer:
