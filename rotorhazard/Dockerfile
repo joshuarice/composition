@@ -1,23 +1,8 @@
-FROM python:3.9
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libssl-dev \
-    libffi-dev \
-    python3-dev \
-    python3-pip \
-    python3-setuptools \
-    python3-venv \
-    python3-wheel
-
-RUN apt-get install -y git
-
-RUN git clone https://github.com/RotorHazard/RotorHazard.git
-
+FROM python:3.9-slim
+WORKDIR /RotorHazard
+COPY src/server/reqsNonPi.txt /RotorHazard/src/server/reqsNonPi.txt
+RUN pip install -r /RotorHazard/src/server/reqsNonPi.txt
+COPY . .
 WORKDIR /RotorHazard/src/server
-
-RUN pip install -r reqsNonPi.txt
-
-ENTRYPOINT ["python", "server.py"]
-
 EXPOSE 5000
+ENTRYPOINT ["python", "server.py"]
